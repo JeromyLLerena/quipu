@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
+
+Route::group(['prefix' => 'auth', 'as' => 'auth', 'namespace' => 'Auth'], function(){
+	Route::get('login', ['as' => '.login', 'uses' => 'LoginController@login']);
+	Route::post('login', ['as' => '.login', 'uses' => 'LoginController@authenticate']);
+	Route::get('register', ['as' => '.register', 'uses' => 'LoginController@register']);
+	Route::post('register', ['as' => '.register', 'uses' => 'LoginController@create']);
+});
+
