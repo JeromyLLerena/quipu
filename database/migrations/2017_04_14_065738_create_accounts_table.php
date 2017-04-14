@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchasesTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,26 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('accounts', function(Blueprint $table){
             $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+            $table->double('balance');
             $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('product_id')->nullable();
-            $table->string('photo')->nullable();
+            $table->unsignedInteger('currency_id');
+            $table->string('icon');
             $table->timestamps();
-
-            $table->foreign('product_id')
-                  ->references('id')
-                  ->on('products')
-                  ->onDelete('set null')
-                  ->onUpdate('cascade');
 
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('set null')
+                  ->onUpdate('cascade');
+
+            $table->foreign('currency_id')
+                  ->references('id')
+                  ->on('currencies')
+                  ->onDelete('restrict')
                   ->onUpdate('cascade');
         });
     }
@@ -41,11 +44,11 @@ class CreatePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::table('purchases', function(Blueprint $table){
-            $table->dropForeign(['product_id']);
+        Schema::table('accounts', function(Blueprint $table){
             $table->dropForeign(['user_id']);
+            $table->dropForeign(['currency_id']);
         });
 
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('accounts');
     }
 }

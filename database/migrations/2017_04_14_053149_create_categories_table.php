@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBagsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateBagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bags', function (Blueprint $table) {
+        Schema::create('categories', function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
-            $table->text('short_description')->nullable();
-            $table->unsignedInteger('user_id');
-            $table->timestamps();
+            $table->unsignedInteger('transaction_type_id')->nullable();
 
-            $table->foreign('user_id')
+            $table->foreign('transaction_type_id')
                   ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade')
+                  ->on('transaction_types')
+                  ->onDelete('set null')
                   ->onUpdate('cascade');
         });
     }
@@ -35,10 +33,10 @@ class CreateBagsTable extends Migration
      */
     public function down()
     {
-        Schema::table('bags', function(Blueprint $table){
-            $table->dropForeign(['user_id']);
+        Schema::table('categories', function(Blueprint $table){
+            $table->dropForeign(['transaction_type_id']);
         });
 
-        Schema::dropIfExists('bags');
+        Schema::dropIfExists('categories');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBagsCollaboratorsTable extends Migration
+class CreateAccountCollaboratorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,24 @@ class CreateBagsCollaboratorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bags_collaborators', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::Create('account_collaborators', function(Blueprint $table){
+            $table->unsignedInteger('account_id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('bag_id');
             $table->timestamps();
+
+            $table->primary(['account_id', 'user_id'], 'account_collaborators_account_id_user_id_primary');
+
+            $table->foreign('account_id')
+                  ->references('id')
+                  ->on('accounts')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
 
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-
-            $table->foreign('bag_id')
-                  ->references('id')
-                  ->on('bags')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-
         });
     }
 
@@ -41,11 +41,12 @@ class CreateBagsCollaboratorsTable extends Migration
      */
     public function down()
     {
-        Schema::table('bags_collaborators', function(Blueprint $table){
+        Schema::table('account_collaborators', function(Blueprint $table){
+            $table->dropForeign(['account_id']);
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['bag_id']);
+            $table->dropPrimary('account_collaborators_account_id_user_id_primary');
         });
 
-        Schema::dropIfExists('bags_collaborators');
+        Schema::dropIfExists('account_collaborators');
     }
 }
