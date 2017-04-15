@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'auth', 'as' => 'auth', 'namespace' => 'Auth'], function(){
-	Route::get('login', ['as' => '.login', 'uses' => 'LoginController@login']);
-	Route::post('login', ['as' => '.login', 'uses' => 'LoginController@authenticate']);
-	Route::get('register', ['as' => '.register', 'uses' => 'LoginController@register']);
-	Route::post('register', ['as' => '.register', 'uses' => 'LoginController@create']);
+    Route::get('login', ['as' => '.login', 'uses' => 'LoginController@showLogin']);
+    Route::post('login', ['as' => '.login', 'uses' => 'LoginController@login']);
+    Route::get('register', ['as' => '.register', 'uses' => 'RegisterController@showRegister']);
+    Route::post('register', ['as' => '.register', 'uses' => 'RegisterController@register']);
 });
 
