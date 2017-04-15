@@ -10,14 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function(){
+    return redirect()->route('auth.login');
+});
 
-Route::get('/', function () {
-    return view('dashboard');
+
+Route::group(['prefix' => 'home', 'as' => 'home', 'namespace' => 'Home'], function(){
+    Route::get('dashboard', ['as' => '.dashboard', 'uses' => 'HomeController@dashboard']);
 });
 
 Route::group(['prefix' => 'auth', 'as' => 'auth', 'namespace' => 'Auth'], function(){
     Route::get('login', ['as' => '.login', 'uses' => 'LoginController@showLogin']);
     Route::post('login', ['as' => '.login', 'uses' => 'LoginController@login']);
+    Route::get('logout', ['as' => '.logout', 'uses' => 'LoginController@logout']);
     Route::get('register', ['as' => '.register', 'uses' => 'RegisterController@showRegister']);
     Route::post('register', ['as' => '.register', 'uses' => 'RegisterController@register']);
 });
