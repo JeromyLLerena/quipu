@@ -56,6 +56,6 @@ class CreateTransactionsTable extends Migration
             $table->dropForeign(['category_id']);
         });
 
-        Schema::dropIfExists('transctions');
+        Schema::dropIfExists('transactions');
     }
 }
