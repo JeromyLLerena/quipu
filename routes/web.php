@@ -14,9 +14,15 @@ Route::get('/', function(){
     return redirect()->route('auth.login');
 });
 
-
-Route::group(['prefix' => 'home', 'as' => 'home', 'namespace' => 'Home'], function(){
-    Route::get('dashboard', ['as' => '.dashboard', 'uses' => 'HomeController@dashboard']);
+Route::group(['middleware' => 'auth'], function(){
+    Route::group(['prefix' => 'home', 'as' => 'home', 'namespace' => 'Home'], function(){
+        Route::get('/', ['as' => '.dashboard', 'uses' => 'HomeController@dashboard']);
+    });
+    Route::group(['prefix' => 'accounts', 'as' => 'accounts', 'namespace' => 'Accounts'], function(){
+        Route::get('/', ['as' => '.index', 'uses' => 'AccountController@index']);
+        Route::get('create', ['as' => '.create', 'uses' => 'AccountController@showCreate']);
+        Route::post('create', ['as' => '.create', 'uses' => 'AccountController@create']);
+    });
 });
 
 Route::group(['prefix' => 'auth', 'as' => 'auth', 'namespace' => 'Auth'], function(){
