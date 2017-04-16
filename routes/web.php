@@ -22,6 +22,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/', ['as' => '.index', 'uses' => 'AccountController@index']);
         Route::get('create', ['as' => '.create', 'uses' => 'AccountController@showCreate']);
         Route::post('create', ['as' => '.create', 'uses' => 'AccountController@create']);
+        Route::get('/{id}/edit', ['as' => '.edit', 'uses' => 'AccountController@showEdit']);
+        Route::post('/{id}/edit', ['as' => '.edit', 'uses' => 'AccountController@edit']);
+        Route::get('/{id}/delete', ['as' => '.delete', 'uses' => 'AccountController@delete']);
     });
 });
 

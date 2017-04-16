@@ -53,4 +53,36 @@ class AccountController extends Controller
 
         return redirect()->route('accounts.index');
     }
+
+    public function showEdit($id)
+    {
+        $account = $this->account_management_service->find($id);
+        $currencies = $this->currency_management_service->all();
+
+        return view('accounts.edit')->with(compact('account', 'currencies'));
+    }
+
+    public function edit(AccountCreateRequest $request, $id)
+    {
+        $data = [
+            'id' => $id,
+            'name' => request('name'),
+            'description' => request('description'),
+            'balance' => request('balance'),
+            'currency_id' => request('currency'),
+            'icon' => request('icon'),
+            'user_id' => auth()->user()->id,
+        ];
+
+        $this->account_management_service->save($data);
+
+        return redirect()->route('accounts.index');
+    }
+
+    public function delete($id)
+    {
+        $this->account_management_service->delete($id);
+
+        return redirect()->route('accounts.index');
+    }
 }

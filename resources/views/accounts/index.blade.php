@@ -25,7 +25,7 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<div class="row" style="color: black">
+								<div class="row account-title">
 									<p class="text-center"><strong>{{strtoupper($account->name)}}</strong></p>
 								</div>
 								<div class="row">
@@ -33,12 +33,12 @@
 										<img src="{{$account->icon}}">
 									</div>
 									<div class="col-xs-9 text-right">
-										<div class="huge">{{$account->balance}}</div>
+										<div class="huge">{{$account->decimal_balance}}</div>
 										<div>{{$account->currency->symbol}}</div>
 									</div>
 								</div>
 							</div>
-							<a href="#">
+							<a href="{{route('accounts.edit', $account->id)}}">
 								<div class="panel-footer">
 									<span class="pull-left">Ver detalles</span>
 									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

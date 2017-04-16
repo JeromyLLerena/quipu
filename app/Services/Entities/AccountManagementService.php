@@ -25,4 +25,9 @@ class AccountManagementService
 	{
 		return $this->account_repository->save((object) $data);
 	}
+
+	public function delete($id)
+	{
+		return $this->account_repository->delete($id);
+	}
 }

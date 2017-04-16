@@ -7,4 +7,5 @@ return [
 	'paths' => [
 		'account_icons' => '/img/business/account_icons/',
 	],
+	'decimal_digits' => 2,
 ];

@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('title')
-	Crear cuenta
+	Cuentas - {{$account->name}}
 @endsection
 
 @section('extra_css')
@@ -12,7 +12,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h1 class="page-header">
-				<div class="section-title-text">Crear cuenta</div>
+				<div class="section-title-text">Detalle de Cuenta</div>
+				<div class="section-title-button">
+					<button id="delete-account" type="button" class="form-control btn btn-danger" data-toggle="modal" data-target=".bs-delete-modal-sm"><i class="fa fa-close" aria-hidden="true"></i> Eliminar Cuenta</button>
+				</div>
 			</h1>
 		</div>
 	</div>
@@ -26,22 +29,22 @@
 				</ul>
 			</div>
 		@endif
-		<form class="form-wrapper" action="{{route('accounts.create')}}" method="post">
+		<form class="form-wrapper" action="{{route('accounts.edit', $account->id)}}" method="post">
 			<div class="form-flex-wrapper in-form-group-wrapper">
 				<div class="row">
 					<div class="form-group col-md-4">
 						<label for="name">Nombre</label>
-						<input type="text" class="form-control" placeholder="Nombre" id="name" name="name" value="{{old('name')}}">
+						<input type="text" class="form-control" placeholder="Nombre" id="name" name="name" value="{{old('name') ? old('name') : $account->name}}">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="balance">Saldo</label>
-						<input type="text" class="form-control" placeholder="Saldo" id="balance" name="balance" value="{{old('balance') ? number_format(old('balance'), config('constants.decimal_digits')) : ''}}">
+						<input type="text" class="form-control" placeholder="Saldo" id="balance" name="balance" value="{{old('balance') ? number_format(old('balance'), config('constants.decimal_digits')) : $account->decimal_balance}}">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="currency">Tipo de moneda</label>
 						<select class="form-control" id="currency" name="currency">
 							@foreach($currencies as $currency)
-								<option value="{{$currency->id}}" {{old('currency') == $currency->id ? 'selected' : ''}}>
+								<option value="{{$currency->id}}" {{old('currency') ? ($currency->id == old('currency') ? 'selected' : '') : $account->currency->id == $currency->id ? 'selected' : ''}}>
 									{{ucfirst($currency->name)}} - {{$currency->symbol}}
 								</option>
 							@endforeach
@@ -51,7 +54,7 @@
 				<div class="row">
 					<div class="form-group col-md-8">
 						<label for="description">Descripción</label>
-						<textarea class="form-control" id="description" name="description" placeholder="Descripción">{{old('description')}}</textarea>
+						<textarea class="form-control" id="description" name="description" placeholder="Descripción">{{old('description') ? old('description') : $account->description}}</textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -61,18 +64,18 @@
 					</div>
 					<div class="form-group col-md-2">
 						<label class="account-icon-label">
-							<img class="icon-selected" src="{{old('icon') ? old('icon') : config('constants.default_paths.account_icon')}}">
+							<img class="icon-selected" src="{{old('icon') ? old('icon') : $account->icon}}">
 						</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
-						<button type="submit" class="btn btn-primary">Crear</button>
-						<a href="{{route('accounts.index')}}" class="btn btn-default">Cancelar</a>
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<a href="{{route('accounts.index')}}" class="btn btn-default">Volver</a>
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="icon" id="icon-input" value="{{old('icon') ? old('icon') : config('constants.default_paths.account_icon')}}">
+			<input type="hidden" name="icon" id="icon-input" value="{{old('icon') ? old('icon') : $account->icon}}">
 			{!! csrf_field() !!}
 		</form>
 	</div>
@@ -129,6 +132,27 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade bs-delete-modal-sm" tabindex="-1" role="dialog" aria-labelledby="delte_modal">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Confirmación</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							Está seguro que desea eliminar la cuenta?
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-primary" href="{{route('accounts.delete', $account->id)}}">OK</a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
 		</div>

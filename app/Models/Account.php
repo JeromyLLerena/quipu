@@ -17,4 +17,9 @@ class Account extends Model
     {
         return $this->belongsTo(Currency::class, 'currency_id');
     }
+
+    public function getDecimalBalanceAttribute()
+    {
+        return number_format($this->balance, config('constants.decimal_digits'));
+    }
 }
