@@ -16,7 +16,7 @@
                 <a href="{{route('home.dashboard')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('transactions.create')}}">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar transacción <span></span>
                 </a>
             </li>

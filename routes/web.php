@@ -26,6 +26,21 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/{id}/edit', ['as' => '.edit', 'uses' => 'AccountController@edit']);
         Route::get('/{id}/delete', ['as' => '.delete', 'uses' => 'AccountController@delete']);
     });
+
+    Route::group(['prefix' => 'transactions', 'as' => 'transactions', 'namespace' => 'Transactions'], function(){
+        //Route::get('/', ['as' => '.index', 'uses' => 'TransactionController@index']);
+        Route::get('create', ['as' => '.create', 'uses' => 'TransactionController@showCreate']);
+        Route::post('create', ['as' => '.create', 'uses' => 'TransactionController@create']);
+        //Route::get('/{id}/edit', ['as' => '.edit', 'uses' => 'TransactionController@showEdit']);
+        //Route::post('/{id}/edit', ['as' => '.edit', 'uses' => 'TransactionController@edit']);
+        //Route::get('/{id}/delete', ['as' => '.delete', 'uses' => 'TransactionController@delete']);
+    });
+
+    Route::group(['prefix' => 'labels', 'as' => 'labels', 'namespace' => 'Labels'], function(){
+        Route::group(['prefix' => 'json', 'as' => '.json'], function(){
+            Route::get('all', ['as' => '.all', 'uses' => 'LabelController@all']);
+        });
+    });
 });
 
 Route::group(['prefix' => 'auth', 'as' => 'auth', 'namespace' => 'Auth'], function(){

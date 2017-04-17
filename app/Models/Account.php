@@ -22,4 +22,9 @@ class Account extends Model
     {
         return number_format($this->balance, config('constants.decimal_digits'));
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'account_id');
+    }
 }
