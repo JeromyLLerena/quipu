@@ -16,6 +16,9 @@
 				<div class="section-title-button">
 					<button id="delete-account" type="button" class="form-control btn btn-danger" data-toggle="modal" data-target=".bs-delete-modal-sm"><i class="fa fa-close" aria-hidden="true"></i> Eliminar Cuenta</button>
 				</div>
+				<div class="section-title-button">
+					<button id="transactions" type="button" class="form-control btn btn-default" data-toggle="modal" data-target=".bs-transactions-modal-lg"><i class="fa fa-eye" aria-hidden="true"></i> Ver Transacctiones</button>
+				</div>
 			</h1>
 		</div>
 	</div>
@@ -153,6 +156,51 @@
 				<div class="modal-footer">
 					<a class="btn btn-primary" href="{{route('accounts.delete', $account->id)}}">OK</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade bs-transactions-modal-lg" tabindex="-1" role="dialog" aria-labelledby="transactions_modal">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Últimas transacciones</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-striped">
+								<tr>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Monto</th>
+									<th>Nombre</th>
+								</tr>
+								@foreach($transactions as $transaction)
+									<tr>
+										<td>{{$transaction->register_date}}</td>
+										<td>{{$transaction->register_time_without_seconds}}</td>
+										<td>
+										@if($transaction->is_increment)
+											<p class="text-success">
+												+ {{$transaction->amount_with_symbol}}
+											</p>
+										@else
+											<p class="text-danger">
+												- {{$transaction->amount_with_symbol}}
+											</p>
+										@endif
+										</td>
+										<td>{{$transaction->title}}</td>
+									</tr>
+								@endforeach
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
 				</div>
 			</div>
 		</div>

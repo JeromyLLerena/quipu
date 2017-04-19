@@ -49,4 +49,34 @@ class AccountRepository extends BaseRepository
 
 		return $account;
 	}
+
+	public function incrementBalance($id, $amount)
+	{
+		$account = $this->model->find($id);
+		$success = false;
+
+		if ($amount >= 0.00) {
+			$sucess = $account->increment('balance', $amount);
+		}
+
+		return $sucess;
+	}
+
+	public function decrementBalance($id, $amount) {
+		$account = $this->model->find($id);
+		$success = false;
+
+		if ($account->balance >= $amount && $amount >= 0.00) {
+			$success = $account->decrement('balance', (double) $amount);
+		}
+
+		return $success;
+	}
+
+	public function getLatestTransactions($id, $transactions_quantity)
+	{
+		$account = $this->model->find($id);
+
+		return $account->transactions()->orderBy('register_date' , 'desc')->orderBy('register_time', 'desc')->limit($transactions_quantity)->get();
+	}
 }

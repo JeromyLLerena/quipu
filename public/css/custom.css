@@ -7,6 +7,7 @@
 .section-title-button{
 	display: inline-block;
 	float: right;
+	margin-left: 10px;
 }
 .img-icon{
 	cursor: pointer;

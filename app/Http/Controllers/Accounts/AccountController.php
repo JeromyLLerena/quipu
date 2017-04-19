@@ -58,8 +58,9 @@ class AccountController extends Controller
     {
         $account = $this->account_management_service->find($id);
         $currencies = $this->currency_management_service->all();
+        $transactions = $this->account_management_service->getLatestTransactions($id);
 
-        return view('accounts.edit')->with(compact('account', 'currencies'));
+        return view('accounts.edit')->with(compact('account', 'currencies', 'transactions'));
     }
 
     public function edit(AccountCreateRequest $request, $id)

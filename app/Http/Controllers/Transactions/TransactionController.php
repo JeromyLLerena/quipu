@@ -7,18 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Services\Entities\TransactionManagementService;
 use App\Services\Entities\LabelManagementService;
 use App\Services\Entities\CategoryManagementService;
+use App\Services\Entities\AccountManagementService;
 
 class TransactionController extends Controller
 {
     public function __construct(
         TransactionManagementService $transaction_management_service,
         LabelManagementService $label_management_service,
-        CategoryManagementService $category_management_service
+        CategoryManagementService $category_management_service,
+        AccountManagementService $account_management_service
     )
     {
         $this->transaction_management_service = $transaction_management_service;
         $this->label_management_service = $label_management_service;
         $this->category_management_service = $category_management_service;
+        $this->account_management_service = $account_management_service;
     }
 
     public function index()
@@ -47,7 +50,9 @@ class TransactionController extends Controller
             'register_time' => request('register_time'),
         ];
 
-        $this->transaction_management_service->save($data);
+        if ($this->account_management_service->authorizeTransaction($data)) {
+            $this->transaction_management_service->save($data);
+        }
 
         return redirect()->route('home.dashboard');
     }
