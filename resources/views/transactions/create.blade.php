@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/custom.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('bootstrap-tagsinput-latest/examples/assets/app.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('ericjgagnon-wickedpicker-acee210/dist/wickedpicker.min.css')}}">
 @endsection
 
 @section('content')
@@ -51,19 +53,29 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-md-6">
-						<label for="description">Descripción</label>
-						<textarea class="form-control" id="description" name="description" placeholder="Descripción">{{old('description')}}</textarea>
+					<div class="form-group col-md-2">
+						<label for="type">Tipo</label>
+						<select class="form-control" name="type" id="type">
+							@foreach($transaction_types as $type)
+								<option value="{{$type->id}}" {{old('type') == $type->id ? 'selected' : ''}}>
+									{{$type->name}}
+								</option>
+							@endforeach
+						</select>
 					</div>
 					<div class="form-group col-md-2">
 						<label for="category">Categoría</label>
 						<select class="form-control" name="category" id="category">
 							@foreach($categories as $category)
-								<option value="{{$category->id}}" {{old('category') == $category->id ? 'selected' : ''}}>
+								<option data-type="{{$category->type->id}}" value="{{$category->id}}" {{old('category') == $category->id ? 'selected' : ''}}>
 									{{$category->name}}
 								</option>
 							@endforeach
 						</select>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="description">Descripción</label>
+						<textarea class="form-control" id="description" name="description" placeholder="Descripción">{{old('description')}}</textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -77,7 +89,7 @@
 					</div>
 					<div class="form-group col-md-2">
 						<label for="time">Hora</label>
-						<input type="text" class="form-control" id="time" name="time" value="{{old('time')}}">
+						<input type="text" class="form-control timepicker" id="time" name="time" value="{{old('time')}}">
 					</div>
 				</div>
 				<div class="row">
@@ -96,7 +108,14 @@
 <script type="text/javascript" src="{{asset('bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/typehead.js')}}"></script>
 <script type="text/javascript" src="{{asset('bootstrap-tagsinput-latest/examples/assets/app.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery-ui.js')}}"></script>
+<script type="text/javascript" src="{{asset('ericjgagnon-wickedpicker-acee210/src/wickedpicker.js')}}" ></script>
 <script type="text/javascript">
+	var today = new Date();
+	console.log(today);
+	$('#date').datepicker();
+	$('#date').datepicker('setDate', today.getDate() + "/" + (parseInt(today.getMonth()) + 1) + "/" + today.getFullYear());
+	$('#time').wickedpicker();
 	var labelnames = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -118,6 +137,17 @@
 			valueKey: 'name',
 			source: labelnames.ttAdapter()
 		}
+	});
+
+	$('#type').change(function(){
+		var type = $(this).val();
+		var visible_options = $("[data-type='" + type + "']");
+		var all_options = $('#category').find('option')
+		all_options.hide();
+		visible_options.show();
+		all_options.removeAttr('selected');
+		visible_options.first().attr('selected', 'selected');
+		visible_options.first().click();
 	});
 </script>
 @endsection

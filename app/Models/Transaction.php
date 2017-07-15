@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Transaction extends Model
 {
@@ -35,6 +36,21 @@ class Transaction extends Model
 
     public function getRegisterTimeWithoutSecondsAttribute()
     {
-        return date_create($this->register_date . ' ' . $this->register_time)->format('H:i');
+        return date('h:i a', strtotime($this->register_time));
+    }
+
+    public function setRegisterTimeAttribute($value)
+    {
+        $this->attributes['register_time'] = date("H:i:s", strtotime(str_replace(' ', '',$value)));
+    }
+
+    public function setRegisterDateAttribute($value)
+    {
+        $this->attributes['register_date'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+    }
+
+    public function getRegisterDateAttribute($value)
+    {
+        return date('d/m/Y', strtotime($value));
     }
 }

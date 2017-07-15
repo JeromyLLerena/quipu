@@ -8,6 +8,7 @@ use App\Services\Entities\TransactionManagementService;
 use App\Services\Entities\LabelManagementService;
 use App\Services\Entities\CategoryManagementService;
 use App\Services\Entities\AccountManagementService;
+use App\Services\Entities\TransactionTypeManagementService;
 
 class TransactionController extends Controller
 {
@@ -15,13 +16,15 @@ class TransactionController extends Controller
         TransactionManagementService $transaction_management_service,
         LabelManagementService $label_management_service,
         CategoryManagementService $category_management_service,
-        AccountManagementService $account_management_service
+        AccountManagementService $account_management_service,
+        TransactionTypeManagementService $transaction_type_management_service
     )
     {
         $this->transaction_management_service = $transaction_management_service;
         $this->label_management_service = $label_management_service;
         $this->category_management_service = $category_management_service;
         $this->account_management_service = $account_management_service;
+        $this->transaction_type_management_service = $transaction_type_management_service;
     }
 
     public function index()
@@ -32,8 +35,10 @@ class TransactionController extends Controller
     {
         $categories = $this->category_management_service->all();
         $labels = $this->label_management_service->all()->pluck('name');
+        $transaction_types = $this->transaction_type_management_service->all();
         $accounts = auth()->user()->accounts;
-        return view('transactions.create')->with(compact('categories', 'labels', 'accounts'));
+
+        return view('transactions.create')->with(compact('categories', 'labels', 'accounts', 'transaction_types'));
     }
 
     public function create(Request $request)
@@ -46,8 +51,8 @@ class TransactionController extends Controller
             'account_id' => request('account'),
             'user_id' => auth()->user()->id,
             'category_id' => request('category'),
-            'register_date' => request('register_date'),
-            'register_time' => request('register_time'),
+            'register_date' => request('date'),
+            'register_time' => request('time'),
         ];
 
         if ($this->account_management_service->authorizeTransaction($data)) {
