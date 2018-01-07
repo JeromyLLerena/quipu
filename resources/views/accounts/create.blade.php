@@ -72,7 +72,7 @@
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="icon" id="icon-input" value="{{old('icon') ? old('icon') : config('constants.default_paths.account_icon')}}">
+			<input type="hidden" name="icon" id="icon-input" value="{{old('icon') ? old('icon') : asset(config('constants.default_paths.account_icon'))}}">
 			{!! csrf_field() !!}
 		</form>
 	</div>
