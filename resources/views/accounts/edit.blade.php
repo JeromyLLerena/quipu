@@ -67,7 +67,7 @@
 					</div>
 					<div class="form-group col-md-2">
 						<label class="account-icon-label">
-							<img class="icon-selected" src="{{old('icon') ? old('icon') : $account->icon}}">
+							<img class="icon-selected" src="{{old('icon') ? old('icon') : asset($account->icon)}}">
 						</label>
 					</div>
 				</div>

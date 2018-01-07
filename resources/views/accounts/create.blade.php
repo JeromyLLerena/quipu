@@ -86,44 +86,44 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'bag.png'}}" data-name="bag">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'bag.png')}}" data-name="bag">
 						</div>
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'bank_black.png'}}" data-name="bank_black">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'bank_black.png')}}" data-name="bank_black">
 						</div>
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'bank_blue.png'}}" data-name="bank_blue">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'bank_blue.png')}}" data-name="bank_blue">
 						</div>
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'bitcoin.png'}}" data-name="bitcoin">
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'card.png'}}" data-name="card">
-						</div>
-						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'coin.png'}}" data-name="coin">
-						</div>
-						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'coin_tower.png'}}" data-name="coin_tower">
-						</div>
-						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'hard_box.png'}}" data-name="hard_box">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'bitcoin.png')}}" data-name="bitcoin">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'money.png'}}" data-name="money">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'card.png')}}" data-name="card">
 						</div>
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'piggy_bank.png'}}" data-name="piggy_bank">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'coin.png')}}" data-name="coin">
 						</div>
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'purse.png'}}" data-name="purse">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'coin_tower.png')}}" data-name="coin_tower">
 						</div>
 						<div class="col-md-3">
-							<img class="img-icon" src="{{config('constants.paths.account_icons') . 'visa.png'}}" data-name="visa">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'hard_box.png')}}" data-name="hard_box">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'money.png')}}" data-name="money">
+						</div>
+						<div class="col-md-3">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'piggy_bank.png')}}" data-name="piggy_bank">
+						</div>
+						<div class="col-md-3">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'purse.png')}}" data-name="purse">
+						</div>
+						<div class="col-md-3">
+							<img class="img-icon" src="{{asset(config('constants.paths.account_icons') . 'visa.png')}}" data-name="visa">
 						</div>
 					</div>
 				</div>
