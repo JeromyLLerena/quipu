@@ -176,6 +176,7 @@
 									<th>Hora</th>
 									<th>Monto</th>
 									<th>Nombre</th>
+									<th>Archivo</th>
 								</tr>
 								@foreach($transactions as $transaction)
 									<tr>
@@ -193,6 +194,13 @@
 										@endif
 										</td>
 										<td>{{$transaction->title}}</td>
+										@if($transaction->attachment)
+											<td>
+												<a href="{{asset($transaction->attachment)}}" target="_blank">Ver</a>
+											</td>
+										@else
+											<td></td>
+										@endif
 									</tr>
 								@endforeach
 							</table>

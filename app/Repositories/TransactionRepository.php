@@ -53,6 +53,10 @@ class TransactionRepository extends BaseRepository
 			$transaction->category_id = $data->category_id;
 		}
 
+		if (property_exists($data, 'attachment')) {
+			$transaction->attachment = $data->attachment;
+		}
+
 		$transaction->save();
 
 		if (property_exists($data, 'labels')) {

@@ -9,6 +9,8 @@ use App\Services\Entities\LabelManagementService;
 use App\Services\Entities\CategoryManagementService;
 use App\Services\Entities\AccountManagementService;
 use App\Services\Entities\TransactionTypeManagementService;
+use Storage;
+use App\Http\Requests\Transactions\TransactionCreateRequest;
 
 class TransactionController extends Controller
 {
@@ -41,7 +43,7 @@ class TransactionController extends Controller
         return view('transactions.create')->with(compact('categories', 'labels', 'accounts', 'transaction_types'));
     }
 
-    public function create(Request $request)
+    public function create(TransactionCreateRequest $request)
     {
         $data = [
             'title' => request('title'),
@@ -53,7 +55,13 @@ class TransactionController extends Controller
             'category_id' => request('category'),
             'register_date' => request('date'),
             'register_time' => request('time'),
+            'attachment' => null,
         ];
+
+        if ($request->hasFile('attachment')) {
+            $path = $request->file('attachment')->store(config('constants.upload_paths.files.transactions'), 'public');
+            $data['attachment'] = Storage::url($path);
+        }
 
         if ($this->account_management_service->authorizeTransaction($data)) {
             $this->transaction_management_service->save($data);

@@ -13,4 +13,9 @@ return [
 		'discharge' => 2,
 	],
 	'transactions_preview' => 10,
+	'upload_paths' => [
+		'files' => [
+			'transactions' => 'files/transactions',
+		],
+	],
 ];

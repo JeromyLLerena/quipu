@@ -30,7 +30,7 @@
 				</ul>
 			</div>
 		@endif
-		<form class="form-wrapper" action="{{route('transactions.create')}}" method="post">
+		<form class="form-wrapper" action="{{route('transactions.create')}}" method="post" enctype="multipart/form-data">
 			<div class="form-flex-wrapper in-form-group-wrapper">
 				<div class="row">
 					<div class="form-group col-md-3">
@@ -83,13 +83,17 @@
 						<label for="labels">Etiquetas <small>(separadas por comas)</small></label>
 						<input type="text" id="labels" name="labels" data-role="tagsinput" value="{{old('labels')}}">
 					</div>
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-2">
 						<label for="date">Fecha</label>
 						<input type="text" class="form-control" id="date" name="date" value="{{old('date')}}">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="time">Hora</label>
 						<input type="text" class="form-control timepicker" id="time" name="time" value="{{old('time')}}">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="attachment">Archivo</label>
+						<input type="file" class="form-control" id="attachment" name="attachment">
 					</div>
 				</div>
 				<div class="row">

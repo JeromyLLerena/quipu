@@ -14,11 +14,17 @@ class CategorySeeder extends Seeder
         DB::table('categories')->insert([
             ['name' => 'Sueldo trabajo', 'transaction_type_id' => 1],
             ['name' => 'Freelance', 'transaction_type_id' => 1],
-            ['name' => 'Propina', 'transaction_type_id' => 1],
-            ['name' => 'Compra', 'transaction_type_id' => 2],
+            ['name' => 'Regalo', 'transaction_type_id' => 1],
             ['name' => 'Alquiler', 'transaction_type_id' => 2],
             ['name' => 'Regalo', 'transaction_type_id' => 2],
             ['name' => 'Servicios', 'transaction_type_id' => 2],
+            ['name' => 'Alimentos', 'transaction_type_id' => 2],
+            ['name' => 'Transporte', 'transaction_type_id' => 2],
+            ['name' => 'Ropa', 'transaction_type_id' => 2],
+            ['name' => 'Electrónica', 'transaction_type_id' => 2],
+            ['name' => 'Herramientas', 'transaction_type_id' => 2],
+            ['name' => 'Insumos de limpieza', 'transaction_type_id' => 2],
+            ['name' => 'Muebles', 'transaction_type_id' => 2],
         ]);
     }
 }
