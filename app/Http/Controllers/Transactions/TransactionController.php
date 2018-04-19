@@ -40,7 +40,11 @@ class TransactionController extends Controller
         $transaction_types = $this->transaction_type_management_service->all();
         $accounts = auth()->user()->accounts;
 
-        return view('transactions.create')->with(compact('categories', 'labels', 'accounts', 'transaction_types'));
+        if ($accounts->isEMpty()) {
+            return redirect()->route('home.dashboard');
+        } else {
+            return view('transactions.create')->with(compact('categories', 'labels', 'accounts', 'transaction_types'));
+        }
     }
 
     public function create(TransactionCreateRequest $request)
