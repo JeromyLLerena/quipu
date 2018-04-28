@@ -30,4 +30,22 @@ class AccountCreateRequest extends FormRequest
             'icon' => ['required', 'string'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'nombre',
+            'balance' => 'saldo',
+            'currency' => 'tipo de moneda',
+            'icon' => 'ícono',
+            'description' => 'descripción',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'balance.numeric' => 'el campo saldo debe ser un número y con el formato 0.00',
+        ];
+    }
 }

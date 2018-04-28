@@ -116,9 +116,8 @@
 <script type="text/javascript" src="{{asset('ericjgagnon-wickedpicker-acee210/src/wickedpicker.js')}}" ></script>
 <script type="text/javascript">
 	var today = new Date();
-	console.log(today);
 	$('#date').datepicker();
-	$('#date').datepicker('setDate', today.getDate() + "/" + (parseInt(today.getMonth()) + 1) + "/" + today.getFullYear());
+	$('#date').datepicker('setDate', today);
 	$('#time').wickedpicker();
 	var labelnames = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

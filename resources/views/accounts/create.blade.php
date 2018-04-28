@@ -35,7 +35,7 @@
 					</div>
 					<div class="form-group col-md-2">
 						<label for="balance">Saldo</label>
-						<input type="text" class="form-control" placeholder="Saldo" id="balance" name="balance" value="{{old('balance') ? number_format(old('balance'), config('constants.decimal_digits')) : ''}}">
+						<input type="text" class="form-control" placeholder="Saldo" id="balance" name="balance" value="{{old('balance')}}">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="currency">Tipo de moneda</label>

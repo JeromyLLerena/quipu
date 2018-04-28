@@ -28,4 +28,19 @@ class TransactionCreateRequest extends FormRequest
             'amount' => ['required', 'numeric', 'min:0'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'título',
+            'balance' => 'monto',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'amount.numeric' => 'el campo monto debe ser un número y con el formato 0.00',
+        ];
+    }
 }
